@@ -1,0 +1,5 @@
+# Python unpushed files
+__pycache__
+.ipynb_checkpoints/
+# Test files
+Test.ipynb
