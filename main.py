@@ -1,5 +1,3 @@
-import numpy as np
-
 class Function(object):
     """
     Ancestor Function class from X to X
@@ -10,13 +8,6 @@ class Function(object):
 
     def __call__(self,x):
         return x
-
-    def Moment_n(self, mu, sigma, x):
-        """
-        Compute E[M(x)] using ensemble x
-        """
-        return np.sum(self.__call__(x), axis=-1)
-
 
 class FuncLin(Function):
     """
@@ -31,10 +22,3 @@ class FuncLin(Function):
 
     def __call__(self,x):
         return (np.dot(x,M)+self.b)
-
-    def Moment_e(self, mu, sigma):
-        """
-        Given x~N(mu, sigma), simga, mu
-        return the E[M(x)] exact formula
-        """
-        return np.dot(mu, self.M) + self.b.T
