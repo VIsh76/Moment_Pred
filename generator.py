@@ -58,15 +58,21 @@ class Ensemble_Generator(MomentGenerator):
         y = np.mean(F(x), axis=1)
         return (x,self.mu, self.sigma),y
 
-
 class Lorentz_Generator(keras.utils.Sequence):
-    def __init__(self, folder, bs):
+    def __init__(self, folder, bs=32, id_beg=500, id_stop=-1):
+        """
+        Create a lorentz generator
+        folder : folder where mu and sigma are
+        bs : batch size
+        id_beg : first indice use for the generator 
+        id_stop : last indice use for the generator (negative)
+        """
         self.bs = bs
-        self.mu = np.load(os.path.joint(folder,'mu.npy')
-        self.sigma = np.load(os.path.joint(folder,'mu.npy')
+        self.mu = np.load(os.path.join(folder,'mu.npy'))[id_beg:id_stop]
+        self.sigma = np.load(os.path.join(folder,'sigma.npy'))[id_beg:id_stop]
         self.sigma = self.sigma.reshape(len(self.sigma), -1)
-        self.idx = np.arrange(len(self.mu)-1)
-        np.random.shuffle(self.idx)
+        self.idx = np.arange(len(self.mu))
+        #np.random.shuffle(self.idx)
 
     def __len__(self):
         return(len(self.idx)//self.bs)
@@ -74,6 +80,8 @@ class Lorentz_Generator(keras.utils.Sequence):
     def __getitem__(self, i):
         idx   = self.idx[self.bs*i:self.bs*(i+1)]
         idx_o = self.idx[self.bs*i:self.bs*(i+1)]+1
-        X = np.concatenate( self.mu[idx], self.sigma[idx,[0,1,2,4,5,8]], axis=0)
-        Y = np.concatenate( self.mu[idx_o], self.sigma[idx_o,[0,1,2,4,5,8]], axis=0)
+#        print(self.mu[idx].shape, self.sigma[idx][:,[0,1,2,4,5,8]].shape)
+        X = np.concatenate( (self.mu[idx], self.sigma[idx][:,[0,1,2,4,5,8]]), axis=1)
+        Y = np.concatenate( (self.mu[idx_o], self.sigma[idx_o][:,[0,1,2,4,5,8]]), axis=1)
         return X,Y
+

@@ -1,7 +1,8 @@
 # Python unpushed files
 __pycache__
 .ipynb_checkpoints/
-Lorentz_simul/test
+# Exe of C++
+*.exe
 # Datasets
 *.data
 *.npy

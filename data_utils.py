@@ -1,5 +1,5 @@
 import os
-import numpy
+import numpy as np
 
 def reparse_data(file):
     """
