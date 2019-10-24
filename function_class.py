@@ -17,7 +17,6 @@ class Function(object):
         """
         return np.sum(self.__call__(x), axis=-1)
 
-
 class FuncLin(Function):
     """
     Affine Function
@@ -38,3 +37,25 @@ class FuncLin(Function):
         return the E[M(x)] exact formula
         """
         return np.dot(mu, self.M) + self.b.T
+
+
+class Poly(Function):
+    """
+    Deg 2 function
+    """
+    def __init__(self, lbd, b, c):
+        self.dim = b.shape[0]
+        self.lbd = lbd.copy()
+        self.a = lbd*np.diag(np.ones(self.dim))
+        self.b = b.copy()
+        self.c = c.copy()
+
+    def __call__(self,x):
+        return np.dot(np.dot(x.T,self.A), x) + np.dot(self.x, self.b) +  self.c
+
+    def Moment_e(self, mu, sigma):
+        """
+        Given x~N(mu, sigma), simga, mu
+        return the E[M(x)] exact formula
+        """
+        return self.lbd**2*np.diagonal(sigma)

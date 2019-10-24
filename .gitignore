@@ -1,5 +1,11 @@
 # Python unpushed files
 __pycache__
 .ipynb_checkpoints/
+Lorentz_simul/test
+# Datasets
+*.data
+*.npy
+Data/
+
 # Test files
 Test.ipynb
