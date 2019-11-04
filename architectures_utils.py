@@ -12,9 +12,9 @@ from keras import regularizers
 # SWISH
 from keras.utils.generic_utils import get_custom_objects
 
-def swish_activation(x):
-    return K.sigmoid(x)*x
-get_custom_objects().update({'swish': Activation(swish_activation)})
+#def swish_activation(x):
+#    return K.sigmoid(x)*x
+#get_custom_objects().update({'swish': Activation(swish_activation)})
 
 #Naming
 def Name(layer,i):
@@ -46,31 +46,31 @@ class Activation_Generator():
         *arg : additional argument for activation
         """
         if act== 'sigmoid':
-            la = Activation('sigmoid')
+            la = Activation('sigmoid',name = name)
         elif act== 'softplus':
-            la = Activation('softplus')
+            la = Activation('softplus',name = name)
         elif act== 'softmax':
-            la = Activation('softplus')
+            la = Activation('softplus',name = name)
         elif act== 'relu':
-            la = Activation('relu')
+            la = Activation('relu',name = name)
         elif act== 'sigmoid':
-            la = Activation('sigmoid')
+            la = Activation('sigmoid',name = name)
         elif act== 'selu':
-            la = Activation('selu')
+            la = Activation('selu',name = name)
         elif act== 'tanh':
-            la = Activation('tanh')
+            la = Activation('tanh',name = name)
         elif act== 'linear':
-            la = Activation('linear')
+            la = Activation('linear',name = name)
         elif act== 'softmax':
-            la = Activation('softmax')
+            la = Activation('softmax',name = name)
         elif act=='leakyrelu':
-            la = LeakyReLU(arg)
+            la = LeakyReLU(arg,name = name)
         elif act=='elu':
-            la = ELU(arg)
-        elif(act=='swish'):
-            la=Activation('swish')
+            la = ELU(arg,name = name)
+#        elif(act=='swish'):
+#            la=Activation('swish')
         else:
             print(act, "is not implemented")
             assert(False)
-        la.name = name
+        #la.name = name
         return la

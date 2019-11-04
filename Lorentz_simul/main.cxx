@@ -13,23 +13,28 @@ int main()
   cout << "Enter Seed" <<endl;
   cin>> seed;
   arma_rng::set_seed(seed);
+  int dt;
+  cout << "Enter dt" <<endl;
+  cin >> dt;
   string model = "L63";
   cout << "Enter Sample Size" <<endl;
-  int Nsample = 100;
+  int Nsample;
   cin >> Nsample;
   cout << "Enter Number of Simulation" <<endl;
-  int Nsimul = 500;
+  int Nsimul;
   cin >> Nsimul;
   cube F = zeros(Nsimul, 3, Nsample);
-  mat X = ones(3,Nsample)+randn(3,Nsample);
+  mat X = 4*ones(3,Nsample)+randn(3,Nsample);
   for (int i=0; i<Nsimul; i=i+1){
     F.subcube(i, 0, 0, i , 2, Nsample-1)=X;
-    M(X,1,model);
+    M(X,dt,model);
   }
 //  cout << "FileName :" <<endl;
 //  cin>>filename;
   F.save(to_string(Nsample)+"x"
-        +to_string(Nsimul)+"xSeed"
+        +to_string(Nsimul)+"x"
+        +to_string(dt)+"xSeed"
         +to_string(seed)+".data",raw_ascii);
+  cout << "FileSaved"<< endl;
   return 0;
 }
